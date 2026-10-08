@@ -1,0 +1,17 @@
+[package]
+name = "gray-autocommit"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+license = "MIT"
+description = "Commit uncommitted changes when the turn ends (opt-in). Port of pi's auto-commit-on-exit extension."
+
+[[bin]]
+name = "gray-autocommit"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
