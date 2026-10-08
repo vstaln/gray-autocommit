@@ -1,6 +1,15 @@
-# gray-autocommit
+<p align="center">
+  <img src="assets/gray-logo.svg" alt="gray" width="96">
+</p>
+<h1 align="center">gray-autocommit</h1>
+<p align="center">Commit uncommitted changes when the turn ends (opt-in).</p>
+<p align="center">
+  <a href="https://github.com/vstaln/gray-autocommit/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <img alt="gray plugin" src="https://img.shields.io/badge/gray-plugin-7aa2f7.svg">
+  <img alt="rust" src="https://img.shields.io/badge/built%20with-rust-orange.svg">
+</p>
 
-Commit uncommitted changes when the turn ends (opt-in). Port of pi's auto-commit-on-exit extension.
+Commit uncommitted changes when the turn ends (opt-in).
 
 On `turn_end`, when enabled and the session cwd is a git work tree with a
 non-empty `git status --porcelain`: `git add -A` + `git commit -m "gray:
@@ -38,3 +47,7 @@ gray account publish    # check → build → release → publish to the gray re
 
 Bump `version` in `Cargo.toml` before each `publish`; the registry refuses to
 republish a version.
+
+---
+Part of the [gray](https://github.com/vstaln/gray) plugin ecosystem —
+the open-source AI agent harness. <https://gray.alignment.id>
