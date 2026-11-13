@@ -23,6 +23,7 @@ fn manifest() -> Value {
         "tools": [],
         "description": "commit uncommitted changes at turn end",
         "commands": ["/autocommit"],
+        "command_descriptions": {"/autocommit": "toggle committing changes at turn end"},
     })
 }
 
