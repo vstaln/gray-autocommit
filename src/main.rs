@@ -70,7 +70,13 @@ fn in_work_tree(cwd: &Path) -> bool {
 
 fn changed_files(cwd: &Path) -> Option<Vec<String>> {
     let status = git(cwd, &["status", "--porcelain"])?;
-    Some(status.lines().filter(|l| !l.trim().is_empty()).map(str::to_string).collect())
+    Some(
+        status
+            .lines()
+            .filter(|l| !l.trim().is_empty())
+            .map(str::to_string)
+            .collect(),
+    )
 }
 
 /// The core rule: commit everything if `cwd` is a work tree with a dirty
@@ -94,7 +100,10 @@ fn autocommit_if_dirty(cwd: &Path, session_id: &str) -> Result<Option<String>, S
 fn run_command(argv: &[&str], dir: &Path, cwd: &Path) -> String {
     match argv.first().copied() {
         Some("on") => match set_enabled(dir, true) {
-            Ok(()) => "autocommit on — dirty work trees get a `gray: auto-commit` commit at turn end".into(),
+            Ok(()) => {
+                "autocommit on — dirty work trees get a `gray: auto-commit` commit at turn end"
+                    .into()
+            }
             Err(e) => format!("couldn't enable: {e}"),
         },
         Some("off") => match set_enabled(dir, false) {
@@ -191,7 +200,9 @@ fn main() -> std::io::Result<()> {
     let mut turn = Turn::default();
     for line in stdin.lock().lines() {
         let line = line?;
-        let Ok(req) = serde_json::from_str::<Value>(&line) else { continue };
+        let Ok(req) = serde_json::from_str::<Value>(&line) else {
+            continue;
+        };
         let (reply, exit) = handle(&req, &mut turn);
         if let Some(reply) = reply {
             writeln!(stdout, "{reply}")?;
@@ -209,9 +220,12 @@ mod tests {
     use super::*;
 
     fn call(turn: &mut Turn, method: &str, params: Value) -> Value {
-        handle(&json!({ "id": 1, "method": method, "params": params }), turn)
-            .0
-            .unwrap()
+        handle(
+            &json!({ "id": 1, "method": method, "params": params }),
+            turn,
+        )
+        .0
+        .unwrap()
     }
 
     fn tmpdir(tag: &str) -> PathBuf {
